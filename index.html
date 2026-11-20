@@ -1,70 +1,89 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EcoPoints</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f0fdf4;
-  margin: 0;
-  text-align: center;
-  color: #14532d;
-}
-header {
-  background: #166534;
-  color: white;
-  padding: 25px;
-}
-.card {
-  background: white;
-  margin: 20px;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 3px 10px #ccc;
-}
-.points {
-  font-size: 40px;
-  font-weight: bold;
-}
-button {
-  background: #16a34a;
-  color: white;
-  border: none;
-  padding: 13px 25px;
-  border-radius: 10px;
-  font-size: 16px;
-}
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoPoints</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eaf7ec;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+    }
+    h1 { color: #16833b; }
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #16833b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    .points {
+      font-size: 30px;
+      color: #16833b;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>♻️ EcoPoints</h1>
-  <p>Recycle Today, Save Tomorrow!</p>
-</header>
+  <div class="container">
+    <h1>🌱 EcoPoints</h1>
+    <h3>My EcoPoints</h3>
+    <div class="points" id="points">0</div>
 
-<div class="card">
-  <h2>My EcoPoints</h2>
-  <div class="points" id="points">0</div>
-  <p>Total Recycling Points</p>
-</div>
+    <h3>Recycle and Earn!</h3>
 
-<div class="card">
-  <h2>♻️ Recycling Activity</h2>
-  <p>Start collecting points by recycling!</p>
-  <button onclick="earnPoints()">Earn Points</button>
-</div>
+    <select id="material">
+      <option value="10">Plastic Bottles (10 points/kg)</option>
+      <option value="5">Papers (5 points/kg)</option>
+    </select>
 
-<script>
-let points = 0;
+    <input type="number" id="weight"
+      placeholder="Enter weight in kg" min="0.1" step="0.1">
 
-function earnPoints() {
-  points += 10;
-  document.getElementById("points").innerText = points;
-}
-</script>
+    <button onclick="earnPoints()">Submit Recyclables</button>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    let points = Number(localStorage.getItem("ecoPoints")) || 0;
+
+    document.getElementById("points").textContent = points;
+
+    function earnPoints() {
+      let rate = Number(document.getElementById("material").value);
+      let weight = Number(document.getElementById("weight").value);
+
+      if (!Number.isFinite(weight) || weight <= 0) {
+        document.getElementById("message").textContent =
+          "Please enter a valid weight.";
+        return;
+      }
+
+      let earned = weight * rate;
+      points += earned;
+
+      localStorage.setItem("ecoPoints", points);
+      document.getElementById("points").textContent = points;
+      document.getElementById("message").textContent =
+        "You earned " + earned + " points!";
+      document.getElementById("weight").value = "";
+    }
+  </script>
 </body>
 </html>
-

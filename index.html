@@ -1,1 +1,70 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoPoints</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0fdf4;
+  margin: 0;
+  text-align: center;
+  color: #14532d;
+}
+header {
+  background: #166534;
+  color: white;
+  padding: 25px;
+}
+.card {
+  background: white;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px #ccc;
+}
+.points {
+  font-size: 40px;
+  font-weight: bold;
+}
+button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 13px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>♻️ EcoPoints</h1>
+  <p>Recycle Today, Save Tomorrow!</p>
+</header>
+
+<div class="card">
+  <h2>My EcoPoints</h2>
+  <div class="points" id="points">0</div>
+  <p>Total Recycling Points</p>
+</div>
+
+<div class="card">
+  <h2>♻️ Recycling Activity</h2>
+  <p>Start collecting points by recycling!</p>
+  <button onclick="earnPoints()">Earn Points</button>
+</div>
+
+<script>
+let points = 0;
+
+function earnPoints() {
+  points += 10;
+  document.getElementById("points").innerText = points;
+}
+</script>
+</body>
+</html>
+
